@@ -1,0 +1,33 @@
+name: Send Prices to Bale
+
+on:
+  schedule:
+    # زمان‌ها به وقت جهانی (UTC) هستند. ساعت تهران منهای ۳:۳۰ است.
+    # 6-4 یعنی شنبه تا پنجشنبه
+    - cron: '41 7 * * 6-4'   # ۱۱:۱۱ تهران
+    - cron: '42 8 * * 6-4'   # ۱۲:۱۲ تهران
+    - cron: '43 9 * * 6-4'   # ۱۳:۱۳ تهران
+    - cron: '44 10 * * 6-4'  # ۱۴:۱۴ تهران
+    - cron: '45 11 * * 6-4'  # ۱۵:۱۵ تهران
+    - cron: '46 12 * * 6-4'  # ۱۶:۱۶ تهران
+    - cron: '47 13 * * 6-4'  # ۱۷:۱۷ تهران
+    - cron: '48 14 * * 6-4'  # ۱۸:۱۸ تهران
+  workflow_dispatch: # این خط به شما اجازه می‌دهد دستی هم تست کنید
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        run: python main.py
